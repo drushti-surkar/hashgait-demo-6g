@@ -4,9 +4,9 @@ import { useState } from "react"
 import LoginScreen from "@/components/login-screen"
 import GaitCaptureScreen from "@/components/gait-capture-screen"
 import ResultScreen from "@/components/result-screen"
-import DashboardScreen from "@/components/dashboard-screen"
+import BankingApp from "@/components/banking-app"
 
-type Screen = "login" | "capture" | "result" | "dashboard"
+type Screen = "login" | "capture" | "result" | "banking"
 
 export default function HashGaitApp() {
   const [currentScreen, setCurrentScreen] = useState<Screen>("login")
@@ -25,24 +25,21 @@ export default function HashGaitApp() {
         return <LoginScreen onLogin={navigateToScreen} />
       case "capture":
         return (
-          <GaitCaptureScreen
-            onComplete={() => navigateToScreen("result")}
-            onCancel={() => navigateToScreen("dashboard")}
-          />
+          <GaitCaptureScreen onComplete={() => navigateToScreen("result")} onCancel={() => navigateToScreen("login")} />
         )
       case "result":
         return (
           <ResultScreen
-            onViewDashboard={() => navigateToScreen("dashboard")}
+            onContinue={() => navigateToScreen("banking")}
             onNewCapture={() => navigateToScreen("capture")}
           />
         )
-      case "dashboard":
+      case "banking":
         return (
-          <DashboardScreen
+          <BankingApp
             user={user}
-            onNewCapture={() => navigateToScreen("capture")}
             onLogout={() => navigateToScreen("login")}
+            onNewAuth={() => navigateToScreen("capture")}
           />
         )
       default:
@@ -51,7 +48,7 @@ export default function HashGaitApp() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-black text-white overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-hidden">
       <div className="max-w-md mx-auto min-h-screen relative">{renderScreen()}</div>
     </div>
   )

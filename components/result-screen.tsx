@@ -4,15 +4,15 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Copy, CheckCircle, Eye, RotateCcw, Shield, Server, Hash } from "lucide-react"
+import { Copy, CheckCircle, ArrowRight, RotateCcw, Shield, Server, Hash } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 interface ResultScreenProps {
-  onViewDashboard: () => void
+  onContinue: () => void
   onNewCapture: () => void
 }
 
-export default function ResultScreen({ onViewDashboard, onNewCapture }: ResultScreenProps) {
+export default function ResultScreen({ onContinue, onNewCapture }: ResultScreenProps) {
   const [copiedHash, setCopiedHash] = useState<string | null>(null)
 
   const transactionHash = "a7f2c9e1d4f8b3e6c2f9a1d4b7e0c3f6a9d2b5e8c1f4a7d0b3e6c9f2a5d8b1e4"
@@ -38,7 +38,8 @@ export default function ResultScreen({ onViewDashboard, onNewCapture }: ResultSc
           <div className="w-16 h-16 mx-auto bg-accent/10 rounded-full flex items-center justify-center">
             <Shield className="w-8 h-8 text-accent" />
           </div>
-          <h1 className="text-xl font-semibold text-foreground">Authentication Result</h1>
+          <h1 className="text-xl font-semibold text-foreground">Authentication Verified</h1>
+          <p className="text-sm text-muted-foreground">Secure access granted to your account</p>
         </div>
 
         {/* Primary Result */}
@@ -65,7 +66,7 @@ export default function ResultScreen({ onViewDashboard, onNewCapture }: ResultSc
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center text-foreground text-base">
               <Hash className="w-4 h-4 mr-2" />
-              Transaction Hash
+              Authentication Hash
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -91,23 +92,23 @@ export default function ResultScreen({ onViewDashboard, onNewCapture }: ResultSc
             <CardTitle className="flex items-center justify-between text-foreground text-base">
               <div className="flex items-center">
                 <Server className="w-4 h-4 mr-2" />
-                Backend Status
+                System Status
               </div>
               <Badge className="bg-accent/10 text-accent border-accent/20">
                 <div className="w-2 h-2 bg-accent rounded-full mr-2" />
-                Connected
+                Secure
               </Badge>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4 text-center">
               <div>
-                <div className="text-lg font-semibold text-foreground">2h 14m</div>
-                <p className="text-xs text-muted-foreground">Uptime</p>
+                <div className="text-lg font-semibold text-foreground">256-bit</div>
+                <p className="text-xs text-muted-foreground">Encryption</p>
               </div>
               <div>
-                <div className="text-lg font-semibold text-foreground">1,247</div>
-                <p className="text-xs text-muted-foreground">Total Auths</p>
+                <div className="text-lg font-semibold text-foreground">&lt; 2ms</div>
+                <p className="text-xs text-muted-foreground">Response</p>
               </div>
             </div>
           </CardContent>
@@ -116,11 +117,11 @@ export default function ResultScreen({ onViewDashboard, onNewCapture }: ResultSc
         {/* Action Buttons */}
         <div className="space-y-3 pt-4">
           <Button
-            onClick={onViewDashboard}
+            onClick={onContinue}
             className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
           >
-            <Eye className="w-4 h-4 mr-2" />
-            Go to Dashboard
+            <ArrowRight className="w-4 h-4 mr-2" />
+            Continue to Account
           </Button>
 
           <Button
@@ -129,7 +130,7 @@ export default function ResultScreen({ onViewDashboard, onNewCapture }: ResultSc
             className="w-full h-12 border-border text-foreground hover:bg-muted bg-transparent"
           >
             <RotateCcw className="w-4 h-4 mr-2" />
-            Start New Session
+            Re-authenticate
           </Button>
         </div>
       </div>
